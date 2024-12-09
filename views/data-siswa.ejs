@@ -1,0 +1,81 @@
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+           
+            <h5 class="mt-4">
+                <div class="shadow p-3 mb-4 bg-white rounded d-flex align-items-center">
+                    <i class="fas fa-users me-3" style="font-size: 1.5rem;"></i>
+                    <strong>Data Siswa</strong>
+                </div>
+            </h5>
+
+            
+            <a href="/data-siswa/add" class="btn btn-primary mb-3 shadow-sm">
+                <i class="bi bi-plus"></i> Tambah Data
+            </a>
+
+            
+            <% if (msg.length !== 0) { %>
+                <div id="myAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <%= msg %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <% } %>
+
+           
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-primary text-white">
+                    <i class="fas fa-table me-2"></i><strong>Daftar Siswa</strong>
+                </div>
+                <div class="card-body">
+                    
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover" id="datatablesSimple">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>NISN</th>
+                                    <th>NIK</th>
+                                    <th>No. KK</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (Dsiswa.length === 0) { %>
+                                    <tr>
+                                        <td colspan="6" class="text-center">
+                                            <div class="alert alert-danger fw-bold" role="alert">
+                                                Data Siswa/Siswi Masih Kosong
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <% } %>
+                                <% Dsiswa.forEach((siswa, i) => { %>
+                                    <tr>
+                                        <td><%= i + 1 %></td>
+                                        <td><%= siswa.nama %></td>
+                                        <td><%= siswa.nisn %></td>
+                                        <td><%= siswa.nik %></td>
+                                        <td><%= siswa.nokk %></td>
+                                        <td class="text-center">
+                                            
+                                            <a href="/data-siswa/detail/<%= siswa.nisn %>" class="btn btn-sm btn-info me-2 shadow">
+                                                <i class="bi bi-eye"></i> Detail
+                                            </a>
+                                            
+                                            <a href="/data-siswa/<%= siswa.nisn %>" class="btn btn-sm btn-danger shadow" 
+                                               onclick="deleteSiswa('<%= siswa.nisn %>', '<%= siswa.nama %>'); return false;">
+                                                <i class="bi bi-trash3-fill"></i> Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
